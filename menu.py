@@ -7,27 +7,19 @@ class Menu:
         self.screen = screen
         self.screen_rect = screen.get_rect()
 
-        self.title_font = pygame.font.SysFont(None, 70)
+        self.title_font = pygame.font.SysFont(None, 100)
         self.score_menu_font = pygame.font.SysFont(None, 50)
         self.title_color = (254, 249, 27)
         self.score_menu_color = (255, 255, 255)
         self.title = title
         self.score_menu = score_menu
 
-        self.image = pygame.image.load('images/logo.png')
-        self.rect = self.image.get_rect()
-        self.rect.centerx = self.screen_rect.centerx
-
         self.title_image = False
         self.title_image_rect = False
 
-        self.play_button = Button(screen, '1 Player Game')
+        self.play_button = Button(screen, 'PLAY')
         self.prep_title(self.title)
         self.prep_score_menu(self.score_menu)
-
-    def blitme(self):
-        self.screen.blit(self.image, self.rect)
-        self.play_button.draw_button()
 
     def prep_title(self, title):
         self.title_image = self.title_font.render(title, True, self.title_color, None)
@@ -46,8 +38,7 @@ class Menu:
     def draw_menu(self):
         self.screen.blit(self.title_image, self.title_image_rect)
         self.screen.blit(self.score_menu_image, self.score_menu_image_rect)
-        #self.play_button.draw_button()
-        #self.score_button.draw_button()
+        self.play_button.draw_button()
 
 
 class Button:
@@ -58,14 +49,13 @@ class Button:
 
         # set the dimensions and properties of the button
         self.width, self.height = 200, 50
-        self.button_color = (33, 150, 243)
+        self.button_color = (0, 0, 0)
         self.font = pygame.font.SysFont(None, 48)
-        self.font_color = (255, 255, 255)
+        self.font_color = (7, 243, 229)
 
         # build the button's rect and position it
         self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.centerx = self.screen_rect.centerx
-        self.rect.centery = self.screen_rect.centery + 150
+        self.rect.center = self.screen_rect.center
 
         self.msg_image = False
         self.msg_image_rect = False
@@ -75,8 +65,7 @@ class Button:
     def prep_msg(self, msg):
         self.msg_image = self.font.render(msg, True, self.font_color)
         self.msg_image_rect = self.msg_image.get_rect()
-        self.msg_image_rect.centerx = self.rect.centerx
-        self.msg_image_rect.centery = self.rect.centery
+        self.msg_image_rect.center = self.rect.center
 
     def draw_button(self):
         self.screen.fill(self.button_color, self.rect)

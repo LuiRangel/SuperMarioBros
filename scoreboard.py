@@ -16,7 +16,7 @@ class Scoreboard():
 
     def prep_score(self):
         score_str = str(self.ai_settings.score)
-        self.score_image = self.font.render(score_str, True, self.text_color, self.ai_settings.bg_color)
+        self.score_image = self.font.render(score_str, True, self.text_color, self.ai_settings.BLACK)
 
         self.score_rect = self.score_image.get_rect()
         self.score_rect.centerx = self.screen_rect.left + 100
@@ -26,7 +26,7 @@ class Scoreboard():
         high_score = int(round(self.ai_settings.high_score, -1))
         high_score_str = "{:,}".format(high_score)
 
-        self.high_score_image = self.font.render(high_score_str, True, self.text_color, self.ai_settings.bg_color)
+        self.high_score_image = self.font.render(high_score_str, True, self.text_color, self.ai_settings.BLACK)
         self.high_score_rect = self.high_score_image.get_rect()
         self.high_score_rect.centerx = self.screen_rect.right - 100
         self.high_score_rect.centery = (self.screen_rect.height / 2) - 130
