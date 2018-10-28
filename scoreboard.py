@@ -1,7 +1,8 @@
 import pygame.font
 from os import path
 
-class Scoreboard():
+
+class Scoreboard:
 
     def __init__(self, ai_settings, screen):
         self.screen = screen
@@ -10,6 +11,13 @@ class Scoreboard():
 
         self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont('helvetica', 48)
+
+        # initialization
+        self.score_image = False
+        self.score_rect = False
+        self.high_score_image = False
+        self.high_score_rect = False
+        self.dir = False
 
         self.prep_score()
         self.prep_high_score()
@@ -30,7 +38,6 @@ class Scoreboard():
         self.high_score_rect = self.high_score_image.get_rect()
         self.high_score_rect.centerx = self.screen_rect.right - 100
         self.high_score_rect.centery = (self.screen_rect.height / 2) - 130
-
 
     def show_score(self):
         self.screen.blit(self.score_image, self.score_rect)

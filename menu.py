@@ -82,6 +82,7 @@ class Button:
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
+
 class ScoreButton:
 
     def __init__(self, screen, msg):

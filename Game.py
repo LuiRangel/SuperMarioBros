@@ -3,6 +3,7 @@ from menu import Menu
 from scoreboard import Scoreboard
 from settings import Settings
 from eventloop import EventLoop
+from map import Map
 
 
 class Game:
@@ -14,8 +15,8 @@ class Game:
         pygame.display.set_caption("Super Mario Bros.!")
 
         self.menu = Menu(self.screen, 'Super Mario Bros', 'HIGH SCORE:')
+        self.map = Map(self.screen, 'images/world1-1.txt', 'stone_block')
         self.sb = Scoreboard(self.ai_settings, self. screen)
-
 
     def play(self):
         eloop = EventLoop(self.ai_settings.finished)
@@ -32,6 +33,8 @@ class Game:
         if not self.ai_settings.finished:
             self.menu.draw_menu()
             self.menu.blitme()
+        else:
+            self.map.blitme()
 
         pygame.display.flip()
 
