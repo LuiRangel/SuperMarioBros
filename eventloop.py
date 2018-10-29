@@ -24,15 +24,19 @@ class EventLoop:
         if event.key == pygame.K_RIGHT:
             print('RIGHT')
             mario.moving_right = True
+            mario.orientation = "Right"
         elif event.key == pygame.K_LEFT:
             print('LEFT')
             mario.moving_left = True
+            mario.orientation = "Left"
         elif event.key == pygame.K_UP:
             print('UP')
             mario.moving_up = True
+            mario.orientation = "Up"
         elif event.key == pygame.K_DOWN:
             print('DOWN')
             mario.moving_down = True
+            mario.orientation = "Down"
         elif event.key == pygame.K_q:
             sys.exit()
 

@@ -40,11 +40,11 @@ class Menu:
         self.score_menu_image = self.score_menu_font.render(score_menu, True, self.score_menu_color, None)
         self.score_menu_image_rect = self.score_menu_image.get_rect()
 
-        self.score_menu_image_rect.centerx = self.screen_rect.centerx - 50
-        self.score_menu_image_rect.centery = self.screen_rect.centery - 100
+        self.score_menu_image_rect.centerx = self.screen_rect.centerx - 60
+        self.score_menu_image_rect.centery = self.screen_rect.centery + 200
 
     def draw_menu(self):
-        self.screen.blit(self.title_image, self.title_image_rect)
+        #self.screen.blit(self.title_image, self.title_image_rect)
         self.screen.blit(self.score_menu_image, self.score_menu_image_rect)
         #self.play_button.draw_button()
         #self.score_button.draw_button()
@@ -81,7 +81,6 @@ class Button:
     def draw_button(self):
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
-
 
 class ScoreButton:
 
