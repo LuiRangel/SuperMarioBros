@@ -4,6 +4,7 @@ from scoreboard import Scoreboard
 from settings import Settings
 from eventloop import EventLoop
 from map import Map
+from mario import Mario
 
 
 class Game:
@@ -16,14 +17,16 @@ class Game:
 
         self.menu = Menu(self.screen, 'Super Mario Bros', 'HIGH SCORE:')
         self.map = Map(self.screen, 'images/world1-1.txt', 'stone_block')
+        self.mario = Mario(self.ai_settings, self.screen, self.map)
         self.sb = Scoreboard(self.ai_settings, self. screen)
 
     def play(self):
         eloop = EventLoop(self.ai_settings.finished)
 
         while not eloop.finished:
-            eloop.check_events(self.ai_settings, self.menu)
+            eloop.check_events(self.ai_settings, self.menu, self.mario)
             self.update_screen()
+            self.mario.update(self.map.stone)
             self.sb.check_high_score(self.sb)
 
     def update_screen(self):
@@ -35,6 +38,7 @@ class Game:
             self.menu.blitme()
         else:
             self.map.blitme()
+            self.mario.blitme()
 
         pygame.display.flip()
 

@@ -17,6 +17,8 @@ class Map:
         self.stone_block = ImageRect(screen, stonefile, sz, sz)
 
         self.deltax = self.deltay = Map.BLOCK_SIZE
+        self.spawnx = 0
+        self.spawny = 0
 
         self.build()
 
@@ -33,6 +35,9 @@ class Map:
                 col = row[ncol]
                 if col == 's':
                     self.stone.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
+                if col == 'M':
+                    self.spawnx = ncol * dx
+                    self.spawny = nrow * dy
 
     def blitme(self):
         for rect in self.stone:

@@ -15,6 +15,10 @@ class Settings:
         # game_active flag
         self.finished = False
 
+        # player settings
+        self.player_speed = 1
+        self.gravity = 0.9
+
         # scoring
         self.score = 0
         self.high_score = 0
