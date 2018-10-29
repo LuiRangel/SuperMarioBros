@@ -11,6 +11,7 @@ class ImageRect:
         self.rect = img.get_rect()
         self.rect.left -= self.rect.width
         self.rect.right -= self.rect.height
+        self.rect.top -= self.rect.height
         self.image = img
 
     def __str__(self): return 'imagerect(' + str(self.image) + str(self.rect) + ')'
