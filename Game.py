@@ -17,7 +17,7 @@ class Game:
 
         self.menu = Menu(self.screen, 'Super Mario Bros', 'TOP - ')
         self.map = Map(self.screen, 'images/map.txt', 'stone_block')
-        self.mario = Mario(self.ai_settings, self.screen, self.map)
+        self.mario = Mario(self.ai_settings, self.screen, self.map, self)
         self.sb = Scoreboard(self.ai_settings, self.screen)
         self.load_data()
 
