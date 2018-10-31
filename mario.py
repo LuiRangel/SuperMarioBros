@@ -68,11 +68,15 @@ class Mario(Sprite):
             if self.rect.collidelist(stone) != -1:
                 self.rect.centery += self.ai_settings.player_speed
 
-        if self.rect.bottom < self.screen_rect.bottom:
-            self.rect.centery += self.ai_settings.player_speed
-            if self.rect.collidelist(stone) != -1:
-                self.rect.centery -= self.ai_settings.player_speed * self.acc.y
-                print('collision')
+        self.acc.y += self.ai_settings.player_acc
+        if self.rect.collidelist(stone) == -1 and self.rect.bottom < self.screen_rect.bottom:
+            self.acc.y -= self.ai_settings.player_acc
+
+        # if self.rect.bottom < self.screen_rect.bottom:
+        #     self.rect.centery += self.ai_settings.player_speed
+        #     if self.rect.collidelist(stone) != -1:
+        #         self.rect.centery -= self.ai_settings.player_speed * self.acc.y
+        #         print('collision')
 
         self.acc.x += self.vel.x * self.ai_settings.player_friction
         self.vel += self.acc
