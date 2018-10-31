@@ -9,6 +9,7 @@ class Settings:
 
         # music
         self.theme = pygame.mixer.music.load('sounds/super_mario_bros_theme.wav')
+        self.jump_sound = pygame.mixer.Sound('sounds/jump.wav')
 
         # game_active flag
         self.finished = False

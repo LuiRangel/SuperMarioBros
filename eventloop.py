@@ -1,6 +1,6 @@
 import sys
 import pygame
-
+from mario import Mario
 
 class EventLoop:
     def __init__(self, finished):
@@ -12,7 +12,7 @@ class EventLoop:
             if event.type == pygame.QUIT:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                EventLoop.check_keydown_events(event, mario)
+                EventLoop.check_keydown_events(event, mario, ai_settings)
             if event.type == pygame.KEYUP:
                 EventLoop.check_keyup_events(event, mario)
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -20,7 +20,7 @@ class EventLoop:
                 EventLoop.check_play_button(ai_settings, menu, mouse_x, mouse_y)
 
     @staticmethod
-    def check_keydown_events(event, mario):
+    def check_keydown_events(event, mario, ai_settings):
         if event.key == pygame.K_RIGHT:
             print('RIGHT')
             mario.moving_right = True
@@ -37,6 +37,9 @@ class EventLoop:
             print('DOWN')
             mario.moving_down = True
             mario.orientation = "Down"
+        elif event.key == pygame.K_SPACE:
+            mario.vel.y = -20
+            pygame.mixer.Sound.play(ai_settings.jump_sound)
         elif event.key == pygame.K_q:
             sys.exit()
 
@@ -61,4 +64,3 @@ class EventLoop:
             # Hide the mouse cursor.
             pygame.mouse.set_visible(False)
             ai_settings.finished = True
-            print('hi')
