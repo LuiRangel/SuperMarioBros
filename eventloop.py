@@ -38,7 +38,10 @@ class EventLoop:
             mario.moving_down = True
             mario.orientation = "Down"
         elif event.key == pygame.K_SPACE:
-            mario.vel.y = -20
+            print('JUMP')
+            # mario.vel = -20
+            mario.jump = True
+            # mario.orientation = "Jump"
             pygame.mixer.Sound.play(ai_settings.jump_sound)
         elif event.key == pygame.K_q:
             sys.exit()

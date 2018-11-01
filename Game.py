@@ -7,6 +7,7 @@ from map import Map
 from mario import Mario
 from os import path
 
+
 class Game:
 
     def __init__(self):
@@ -15,8 +16,9 @@ class Game:
         self.screen = pygame.display.set_mode((self.ai_settings.screen_width, self.ai_settings.screen_height))
         pygame.display.set_caption("Super Mario Bros.")
 
+        self.screen_rect = self.screen.get_rect()
         self.menu = Menu(self.screen, 'Super Mario Bros', 'TOP - ')
-        self.map = Map(self.screen, 'images/map.txt', 'stone_block')
+        self.map = Map(self.screen, 'images/world1-1.txt', 'stone_block')
         self.mario = Mario(self.ai_settings, self.screen, self.map, self)
         self.sb = Scoreboard(self.ai_settings, self.screen)
         self.load_data()
