@@ -5,20 +5,26 @@ from imagerect import ImageRect
 class Map:
     BLOCK_SIZE = 30
 
-    def __init__(self, screen, worldfile, stonefile):
+    def __init__(self, screen, worldfile, stonefile, metalfile, rockfile):
         self.screen = screen
+        self.screen_rect = screen.get_rect()
         self.filename = worldfile
         with open(self.filename, 'r') as f:
             self.rows = f.readlines()
 
         self.stone = []
+        self.metal = []
+        self.rock = []
         sz = Map.BLOCK_SIZE
 
         self.stone_block = ImageRect(screen, stonefile, sz, sz)
+        self.metal_block = ImageRect(screen, metalfile, sz, sz)
+        self.rock_block = ImageRect(screen, rockfile, sz, sz)
 
         self.deltax = self.deltay = Map.BLOCK_SIZE
         self.spawnx = 0
         self.spawny = 0
+        self.map_shift = 0
 
         self.build()
 
@@ -38,7 +44,35 @@ class Map:
                 if col == 'M':
                     self.spawnx = ncol * dx
                     self.spawny = nrow * dy
+                if col == 'm':
+                    self.metal.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
+                if col == 'r':
+                    self.rock.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
+
+    # shift blocks depending on mario's relation to the middle of the screen to simulate scrolling
+    def shift_level(self, x):
+        self.map_shift = x
+
+        for block in self.stone:
+            block.x += self.map_shift
+        for block in self.metal:
+            block.x += self.map_shift
+        for block in self.rock:
+            block.x += self.map_shift
 
     def blitme(self):
         for rect in self.stone:
-            self.screen.blit(self.stone_block.image, rect)
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                self.screen.blit(self.stone_block.image, rect)
+        for rect in self.metal:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                self.screen.blit(self.metal_block.image, rect)
+        for rect in self.rock:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                self.screen.blit(self.rock_block.image, rect)

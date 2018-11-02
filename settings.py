@@ -7,6 +7,7 @@ class Settings:
         self.bg_color = (130, 190, 245)
         self.screen_width = 1200
         self.screen_height = 800
+        self.screen_half_width = self.screen_width / 2
 
         # music
         self.theme = pygame.mixer.music.load('sounds/super_mario_bros_theme.wav')

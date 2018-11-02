@@ -18,7 +18,7 @@ class Game:
 
         self.screen_rect = self.screen.get_rect()
         self.menu = Menu(self.screen, 'Super Mario Bros', 'TOP - ')
-        self.map = Map(self.screen, 'images/world1-1.txt', 'stone_block')
+        self.map = Map(self.screen, 'images/world1-1.txt', 'stone_block', 'metal_block', 'rock_block')
         self.mario = Mario(self.ai_settings, self.screen, self.map, self)
         self.sb = Scoreboard(self.ai_settings, self.screen)
         self.load_data()
@@ -37,8 +37,9 @@ class Game:
 
         while not eloop.finished:
             eloop.check_events(self.ai_settings, self.menu, self.mario)
+            self.mario.update(self.map.stone, self.map.metal)
             self.update_screen()
-            self.mario.update(self.map.stone)
+
             self.sb.check_high_score(self.sb)
 
     def update_screen(self):
@@ -52,6 +53,26 @@ class Game:
 
         else:
             self.sb.show_stats()
+            # ==================== check mario pos to see if "scrolling" should occur =================================
+            print('pos')
+            print(self.mario.pos.x)
+            if float(self.mario.pos.x) + float(self.mario.acc.x)>= float(self.ai_settings.screen_half_width) \
+                    and self.mario.moving_right:
+                diff = float(self.mario.pos.x) - self.ai_settings.screen_half_width
+                print('diff')
+                print(diff)
+                self.mario.pos.x = self.ai_settings.screen_half_width
+                # diff = 1
+                self.map.shift_level(-diff)
+            # elif float(self.mario.pos.x) + float(self.mario.acc.x) <= float(self.screen_half_width)
+            # and self.mario.moving_left:
+            #     diff = float(self.mario.pos.x) - self.screen_half_width
+            #     print('diff')
+            #     print(diff)
+            #     self.mario.pos.x = self.screen_half_width
+            #     diff = -1 + diff
+            #     self.map.shift_level(-diff)
+            # =========================================================================================================
             self.map.blitme()
             self.mario.blitme()
 
