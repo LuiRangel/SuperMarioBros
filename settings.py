@@ -19,7 +19,7 @@ class Settings:
         # player settings
         self.player_speed = 1
         self.player_acc = 0.01
-        self.player_jump_acc = 1
+        self.player_jump_acc = 3.5
         self.player_friction = -0.012
         self.gravity = 0.01
 

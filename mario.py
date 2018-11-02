@@ -46,15 +46,8 @@ class Mario(Sprite):
         self.jump = False
         self.grounded = True
 
-    # def jump(self, stone):
-    #     self.rect.x += 1
-    #     hits = self.rect.collidelist(stone)     #self.rect.colliderect(block)
-    #     self.rect.x -= 1
-    #
-    #     if hits:
-    #         self.vel.y = -20
 
-    def update(self, rock, metal):
+    def update(self, stone, metal, rock):
         self.acc = vec(0, self.ai_settings.gravity)
 
         if self.moving_right and self.rect.right < self.screen_rect.right:
@@ -89,34 +82,45 @@ class Mario(Sprite):
                 print('collision')
                 self.vel.x = 0
                 self.acc.x = 0
-                self.pos.x += 0.01
+                #self.pos.x += 0.01
 
-        # -----------------------------------------------------------------------
-        # if self.moving_up and self.rect.top > self.screen_rect.top:
-        #     self.rect.centery -= self.ai_settings.player_speed
-        #     if self.rect.collidelist(stone) != -1:
-        #         self.rect.centery += self.ai_settings.player_speed
+        #-----------------------------------------------------------------------
+        if self.moving_up and self.rect.top > self.screen_rect.top:
+            self.rect.centery -= self.ai_settings.player_speed
+            if self.rect.collidelist(stone) != -1:
+                self.rect.centery += self.ai_settings.player_speed
 
-        # jump code ================(needs tweaking look at height and flags he's able to jump multiple times)==========
-        if self.jump and self.height < self.max_height:
-            self.acc.y = -self.ai_settings.player_jump_acc
-            self.height += self.ai_settings.player_jump_acc
-            print(self.height)
-        elif self.height > 0:
-            self.acc.y = self.ai_settings.gravity
-            self.height -= self.ai_settings.gravity
-            print(self.height)
+        #jump code ================(needs tweaking look at height and flags he's able to jump multiple times)==========
+        if self.jump and self.grounded:
+            self.grounded = False
             self.jump = False
+            self.acc.y -= self.ai_settings.player_jump_acc
+            self.height += self.ai_settings.player_jump_acc
+            pygame.mixer.Sound.play(self.ai_settings.jump_sound)
+            print(self.height)
+
         if self.height == 0:
             self.jump = False
-            self.grounded = True
+            self.grounded = False
+
         # ========================================
 
         # ------------------------------------------------------------------------
 
         self.acc.y += self.ai_settings.player_acc
-        if self.rect.collidelist(rock) == -1 and self.rect.bottom < self.screen_rect.bottom:
+        if self.rect.collidelist(stone) == -1 and self.rect.bottom < self.screen_rect.bottom:
             self.acc.y -= self.ai_settings.player_acc
+
+        if self.rect.bottom < self.screen_rect.bottom:
+            self.rect.centery += self.ai_settings.player_speed
+            for block in stone:
+                if self.rect.colliderect(block):
+                    self.vel.y = 0
+                    self.pos.y = block.top
+                    self.height = 0
+                    self.grounded = True
+        elif self.rect.bottom == self.screen_rect.bottom:
+            self.ai_settings.finished = True
 
         if self.rect.bottom < self.screen_rect.bottom:
             self.rect.centery += self.ai_settings.player_speed
@@ -124,8 +128,17 @@ class Mario(Sprite):
                 if self.rect.colliderect(block):
                     self.vel.y = 0
                     self.pos.y = block.top
-        elif self.rect.bottom == self.screen_rect.bottom:
-            self.ai_settings.finished = True
+                    self.height = 0
+                    self.grounded = True
+
+        if self.rect.bottom < self.screen_rect.bottom:
+            self.rect.centery += self.ai_settings.player_speed
+            for block in metal:
+                if self.rect.colliderect(block):
+                    self.vel.y = 0
+                    self.pos.y = block.top
+                    self.height = 0
+                    self.grounded = True
 
         if self.acc.x == 0:
             self.image = pygame.transform.scale(self.images[0], (50, 50))
@@ -149,19 +162,19 @@ class Mario(Sprite):
         self.vel += self.acc
         self.pos += self.vel + (0.5 * self.acc)
 
-        # detects collision for when button is not pressed/held (sliding mario); but still gets stuck
-        if self.rect.collidelist(metal) != -1:
-            print('collision')
-            # sliding left
-            if self.acc.x < 0:
-                self.pos += self.vel + (0.5 * self.acc)
-                self.vel.x = 0
-                self.acc.x = 0
-            # sliding right
-            elif self.acc.x > 0:
-                self.pos -= self.vel + (0.5 * self.acc)
-                self.vel.x = 0
-                self.acc.x = 0
+        #detects collision for when button is not pressed/held (sliding mario); but still gets stuck
+        # if self.rect.collidelist(metal) != -1:
+        #     print('collision')
+        #     # sliding left
+        #     if self.acc.x < 0:
+        #         self.pos += self.vel + (0.5 * self.acc)
+        #         self.vel.x = 0
+        #         self.acc.x = 0
+        #     # sliding right
+        #     elif self.acc.x > 0:
+        #         self.pos -= self.vel + (0.5 * self.acc)
+        #         self.vel.x = 0
+        #         self.acc.x = 0
 
         # update rect using pos
         self.rect.midbottom = self.pos
@@ -173,10 +186,9 @@ class Mario(Sprite):
         elif self.orientation == "Right":
             self.screen.blit(self.image, self.rect)
         # got rid of up orientation statement and replaced it with height check needs work ====================
-        elif self.jump and self.height > 0 and self.orientation == 'Right':                     #
-            self.screen.blit(pygame.transform.scale(self.images[3], (50, 50)), self.rect)       #
-        elif self.jump and self.height > 0 and self.orientation == 'Left':                      #
-            self.screen.blit(pygame.transform.scale(self.images[3], (50, 50)), self.rect)       #
+        elif self.orientation == "Jump":
+            pygame.transform.scale(self.images[3], (50, 50))
+            self.screen.blit(pygame.transform.scale(self.images[3], (50, 50)), self.rect)
         # =====================================================================================================
         elif self.orientation == "Down":
             self.screen.blit(self.image, self.rect)
