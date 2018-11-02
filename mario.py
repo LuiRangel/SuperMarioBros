@@ -46,8 +46,7 @@ class Mario(Sprite):
         self.jump = False
         self.grounded = True
 
-
-    def update(self, stone, metal, rock):
+    def update(self, rock, metal):
         self.acc = vec(0, self.ai_settings.gravity)
 
         if self.moving_right and self.rect.right < self.screen_rect.right:
@@ -84,13 +83,13 @@ class Mario(Sprite):
                 self.acc.x = 0
                 #self.pos.x += 0.01
 
-        #-----------------------------------------------------------------------
+        # -----------------------------------------------------------------------
         if self.moving_up and self.rect.top > self.screen_rect.top:
             self.rect.centery -= self.ai_settings.player_speed
-            if self.rect.collidelist(stone) != -1:
+            if self.rect.collidelist(rock) != -1:
                 self.rect.centery += self.ai_settings.player_speed
 
-        #jump code ================(needs tweaking look at height and flags he's able to jump multiple times)==========
+        # jump code ================(needs tweaking look at height and flags he's able to jump multiple times)==========
         if self.jump and self.grounded:
             self.grounded = False
             self.jump = False
@@ -108,12 +107,12 @@ class Mario(Sprite):
         # ------------------------------------------------------------------------
 
         self.acc.y += self.ai_settings.player_acc
-        if self.rect.collidelist(stone) == -1 and self.rect.bottom < self.screen_rect.bottom:
+        if self.rect.collidelist(rock) == -1 and self.rect.bottom < self.screen_rect.bottom:
             self.acc.y -= self.ai_settings.player_acc
 
         if self.rect.bottom < self.screen_rect.bottom:
             self.rect.centery += self.ai_settings.player_speed
-            for block in stone:
+            for block in rock:
                 if self.rect.colliderect(block):
                     self.vel.y = 0
                     self.pos.y = block.top
@@ -162,7 +161,7 @@ class Mario(Sprite):
         self.vel += self.acc
         self.pos += self.vel + (0.5 * self.acc)
 
-        #detects collision for when button is not pressed/held (sliding mario); but still gets stuck
+        # detects collision for when button is not pressed/held (sliding mario); but still gets stuck
         # if self.rect.collidelist(metal) != -1:
         #     print('collision')
         #     # sliding left
