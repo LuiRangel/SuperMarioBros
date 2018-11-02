@@ -54,7 +54,7 @@ class Mario(Sprite):
     #     if hits:
     #         self.vel.y = -20
 
-    def update(self, stone, metal):
+    def update(self, rock, metal):
         self.acc = vec(0, self.ai_settings.gravity)
 
         if self.moving_right and self.rect.right < self.screen_rect.right:
@@ -115,12 +115,12 @@ class Mario(Sprite):
         # ------------------------------------------------------------------------
 
         self.acc.y += self.ai_settings.player_acc
-        if self.rect.collidelist(stone) == -1 and self.rect.bottom < self.screen_rect.bottom:
+        if self.rect.collidelist(rock) == -1 and self.rect.bottom < self.screen_rect.bottom:
             self.acc.y -= self.ai_settings.player_acc
 
         if self.rect.bottom < self.screen_rect.bottom:
             self.rect.centery += self.ai_settings.player_speed
-            for block in stone:
+            for block in rock:
                 if self.rect.colliderect(block):
                     self.vel.y = 0
                     self.pos.y = block.top
