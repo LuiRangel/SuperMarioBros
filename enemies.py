@@ -1,16 +1,12 @@
-
-
-
 import pygame as pg
 import os
-
 
 
 SCREEN_HEIGHT = 600
 GROUND_HEIGHT = SCREEN_HEIGHT - 62
 
 
-def load_all_gfx(directory, colorkey=(255,0,255), accept=('.png', 'jpg', 'bmp')):
+def load_all_gfx(directory, colorkey=(255, 0, 255), accept=('.png', 'jpg', 'bmp')):
     graphics = {}
     for pic in os.listdir(directory):
         name, ext = os.path.splitext(pic)
@@ -24,16 +20,13 @@ def load_all_gfx(directory, colorkey=(255,0,255), accept=('.png', 'jpg', 'bmp'))
             graphics[name]=img
     return graphics
 
-
-
-GFX   = load_all_gfx(os.path.join("resources","graphics"))
+GFX = load_all_gfx(os.path.join("resources","graphics"))
 
 
 class Enemy(pg.sprite.Sprite):
     """Base class for all enemies (Goombas, Koopas, etc.)"""
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
-
 
     def setup_enemy(self, x, y, direction, name, setup_frames):
         """Sets up various values for enemy"""
@@ -55,7 +48,6 @@ class Enemy(pg.sprite.Sprite):
         self.rect.bottom = y
         self.set_velocity()
 
-
     def set_velocity(self):
         """Setting velocity vector """
         if self.direction == 'left':
@@ -64,7 +56,6 @@ class Enemy(pg.sprite.Sprite):
             self.x_vel = 2
 
         self.y_vel = 0
-
 
     def get_image(self, x, y, width, height):
         """Getting the image frame from the sprite sheet"""
@@ -80,7 +71,6 @@ class Enemy(pg.sprite.Sprite):
                                     int(rect.height*2.5)))
         return image
 
-
     def handle_state(self):
         """Enemy behavior based on state"""
         if self.state == 'walk':
@@ -94,7 +84,6 @@ class Enemy(pg.sprite.Sprite):
         elif self.state == 'death jump':
             self.death_jumping()
 
-
     def walking(self):
         """Default state of moving sideways"""
         if (self.current_time - self.animate_timer) > 125:
@@ -105,17 +94,14 @@ class Enemy(pg.sprite.Sprite):
 
             self.animate_timer = self.current_time
 
-
     def falling(self):
         """For when it falls off a ledge"""
         if self.y_vel < 10:
             self.y_vel += self.gravity
 
-
     def jumped_on(self):
         """Placeholder for when the enemy is stomped on"""
         pass
-
 
     def death_jumping(self):
         """Death animation"""
@@ -125,7 +111,6 @@ class Enemy(pg.sprite.Sprite):
 
         if self.rect.y > 600:
             self.kill()
-
 
     def start_death_jump(self, direction):
         """Transitions enemy to death state"""
@@ -139,11 +124,9 @@ class Enemy(pg.sprite.Sprite):
         self.image = self.frames[self.frame_index]
         self.state = 'death jump'
 
-
     def animation(self):
         """switching between two frames"""
         self.image = self.frames[self.frame_index]
-
 
     def update(self, game_info, *args):
         """Updating enemy behavior"""
@@ -152,14 +135,11 @@ class Enemy(pg.sprite.Sprite):
         self.animation()
 
 
-
-
 class Goomba(Enemy):
 
     def __init__(self, y=GROUND_HEIGHT, x=0, direction='left', name='goomba'):
         Enemy.__init__(self)
         self.setup_enemy(x, y, direction, name, self.setup_frames)
-
 
     def setup_frames(self):
         """Putting the image frame for animation"""
@@ -172,7 +152,6 @@ class Goomba(Enemy):
             self.get_image(61, 0, 16, 16))
         self.frames.append(pg.transform.flip(self.frames[1], False, True))
 
-
     def jumped_on(self):
         """mario squishies him"""
         self.frame_index = 2
@@ -181,13 +160,11 @@ class Goomba(Enemy):
             self.kill()
 
 
-
 class Koopa(Enemy):
 
     def __init__(self, y=GROUND_HEIGHT, x=0, direction='left', name='koopa'):
         Enemy.__init__(self)
         self.setup_enemy(x, y, direction, name, self.setup_frames)
-
 
     def setup_frames(self):
         """Setting the frame list"""
@@ -199,7 +176,6 @@ class Koopa(Enemy):
             self.get_image(360, 5, 16, 15))
         self.frames.append(pg.transform.flip(self.frames[2], False, True))
 
-
     def jumped_on(self):
         """MARIO jumps on koopa and puts him in his shell"""
         self.x_vel = 0
@@ -210,29 +186,9 @@ class Koopa(Enemy):
         self.rect.x = shell_x
         self.rect.bottom = shell_y
 
-
     def shell_sliding(self):
         """koopa is sliding along the ground in his shell"""
         if self.direction == 'right':
             self.x_vel = 10
         elif self.direction == 'left':
             self.x_vel = -10
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

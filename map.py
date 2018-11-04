@@ -46,7 +46,8 @@ class Map:
             for ncol in range(len(row)):
                 col = row[ncol]
                 if col == 's':
-                    self.stone.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
+                    self.stone.append(pygame.Rect(ncol * dx, nrow * dy, self.stone_block.rect.width,
+                                                  self.stone_block.rect.height))
                 if col == 'M':
                     self.spawnx = ncol * dx
                     self.spawny = nrow * dy
@@ -55,7 +56,8 @@ class Map:
                 if col == 'r':
                     self.rock.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
                 if col == 'b':
-                    self.brick.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
+                    self.brick.append(pygame.Rect(ncol * dx, nrow * dy, self.brick_block.rect.width,
+                                                  self.brick_block.rect.height))
                 if col == 'q':
                     self.q.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
                 if col == 'P':

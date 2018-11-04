@@ -43,6 +43,23 @@ class Game:
 
             self.sb.check_high_score(self.sb)
 
+    def scroll_level(self):
+        # print('pos')
+        # print(self.mario.pos.x)
+        if float(self.mario.pos.x) + float(self.mario.acc.x) >= float(self.ai_settings.screen_half_width) and \
+                self.mario.moving_right:
+            diff = float(self.mario.pos.x) - self.ai_settings.screen_half_width
+            # print('diff')
+            # print(diff)
+            self.mario.pos.x = self.ai_settings.screen_half_width
+            # diff = 1
+            self.map.shift_level(-diff)
+        # elif float(self.mario.pos.x) > float(self.ai_settings.screen_half_width):
+        #     diff = self.mario.pos.x - self.ai_settings.screen_half_width
+        #     print(self.mario.pos.x)
+        #     self.mario.pos.x = self.ai_settings.screen_half_width
+        #     self.map.shift_level(-diff)
+
     def update_screen(self):
         self.screen.fill(self.ai_settings.bg_color)
         self.sb.prep_high_score()
@@ -55,25 +72,7 @@ class Game:
         else:
             self.sb.show_stats()
             # ==================== check mario pos to see if "scrolling" should occur =================================
-            print('pos')
-            print(self.mario.pos.x)
-            if float(self.mario.pos.x) + float(self.mario.acc.x)>= float(self.ai_settings.screen_half_width) \
-                    and self.mario.moving_right:
-                diff = float(self.mario.pos.x) - self.ai_settings.screen_half_width
-                print('diff')
-                print(diff)
-                self.mario.pos.x = self.ai_settings.screen_half_width
-                # diff = 1
-                self.map.shift_level(-diff)
-            # elif float(self.mario.pos.x) + float(self.mario.acc.x) <= float(self.screen_half_width)
-            # and self.mario.moving_left:
-            #     diff = float(self.mario.pos.x) - self.screen_half_width
-            #     print('diff')
-            #     print(diff)
-            #     self.mario.pos.x = self.screen_half_width
-            #     diff = -1 + diff
-            #     self.map.shift_level(-diff)
-            # =========================================================================================================
+            self.scroll_level()
             self.map.blitme()
             self.mario.blitme()
 
