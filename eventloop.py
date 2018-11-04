@@ -54,6 +54,8 @@ class EventLoop:
             mario.moving_up = False
         elif event.key == pygame.K_DOWN:
             mario.moving_down = False
+        elif event.key == pygame.K_SPACE:
+            mario.jump_cut = True
 
     @staticmethod
     def check_play_button(ai_settings, menu, mouse_x, mouse_y):
