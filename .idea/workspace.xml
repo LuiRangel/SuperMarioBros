@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57b1e61d-bfed-4490-9ba9-a61ebae93564" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/images/goomba-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/goomba-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/pipe-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/pipe-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/pipe-3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/world1-1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/images/world1-1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/map.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mario.py" beforeDir="false" afterPath="$PROJECT_DIR$/mario.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
     </list>
@@ -24,7 +17,7 @@
     <session id="1764468987">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="15" />
+          <entry key="project.closed" value="16" />
           <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.14" value="1" />
@@ -37,8 +30,9 @@
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.43" value="1" />
           <entry key="project.open.time.45" value="1" />
+          <entry key="project.open.time.81" value="1" />
           <entry key="project.open.time.85" value="1" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.opened" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -58,25 +52,25 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="12320" />
+          <entry key="py" value="12520" />
           <entry key="txt" value="2005" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="2005" />
-          <entry key="Python" value="12320" />
+          <entry key="Python" value="12520" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="21" column="48" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+            <state relative-caret-position="221">
+              <caret line="40" column="103" selection-start-line="40" selection-start-column="103" selection-end-line="40" selection-end-column="103" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -93,15 +87,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/map.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="559">
-              <caret line="111" column="86" selection-start-line="111" selection-start-column="86" selection-end-line="111" selection-end-column="86" />
+            <state relative-caret-position="1394">
+              <caret line="82" column="50" selection-start-line="82" selection-start-column="50" selection-end-line="82" selection-end-column="50" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1541291629358" expanded="true" signature="79:84" ph="..." />
-                <marker date="1541291629358" expanded="true" signature="2312:2766" ph="..." />
+                <marker date="1541291655345" expanded="true" signature="79:84" ph="..." />
+                <marker date="1541291655345" expanded="true" signature="2312:2766" ph="..." />
               </folding>
             </state>
           </provider>
@@ -110,8 +104,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mario.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="712">
-              <caret line="157" column="69" selection-start-line="157" selection-start-column="69" selection-end-line="157" selection-end-column="69" />
+            <state relative-caret-position="833">
+              <caret line="49" column="49" selection-start-line="49" selection-start-column="49" selection-end-line="49" selection-end-column="49" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -123,7 +117,7 @@
         <entry file="file://$PROJECT_DIR$/eventloop.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1020">
-              <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
+              <caret line="64" column="37" selection-start-line="64" selection-start-column="37" selection-end-line="64" selection-end-column="37" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -134,8 +128,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+            <state relative-caret-position="340">
+              <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -162,17 +156,17 @@
         <option value="$PROJECT_DIR$/scoreboard.py" />
         <option value="$PROJECT_DIR$/images/map.txt" />
         <option value="$PROJECT_DIR$/eventloop.py" />
+        <option value="$PROJECT_DIR$/images/world1-1.txt" />
+        <option value="$PROJECT_DIR$/map.py" />
         <option value="$PROJECT_DIR$/settings.py" />
         <option value="$PROJECT_DIR$/mario.py" />
-        <option value="$PROJECT_DIR$/images/world1-1.txt" />
         <option value="$PROJECT_DIR$/Game.py" />
-        <option value="$PROJECT_DIR$/map.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="309" />
-    <option name="y" value="-14" />
+    <option name="x" value="828" />
+    <option name="y" value="157" />
     <option name="width" value="840" />
     <option name="height" value="1050" />
   </component>
@@ -181,6 +175,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -202,7 +197,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -432,7 +426,7 @@
     <entry file="file://$PROJECT_DIR$/eventloop.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
-          <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
+          <caret line="64" column="37" selection-start-line="64" selection-start-column="37" selection-end-line="64" selection-end-column="37" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -441,17 +435,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+        <state relative-caret-position="340">
+          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Game.py">
+    <entry file="file://$PROJECT_DIR$/map.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="21" column="48" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+        <state relative-caret-position="1394">
+          <caret line="82" column="50" selection-start-line="82" selection-start-column="50" selection-end-line="82" selection-end-column="50" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
+            <marker date="1541291655345" expanded="true" signature="79:84" ph="..." />
+            <marker date="1541291655345" expanded="true" signature="2312:2766" ph="..." />
           </folding>
         </state>
       </provider>
@@ -465,22 +461,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mario.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="712">
-          <caret line="157" column="69" selection-start-line="157" selection-start-column="69" selection-end-line="157" selection-end-column="69" />
+        <state relative-caret-position="833">
+          <caret line="49" column="49" selection-start-line="49" selection-start-column="49" selection-end-line="49" selection-end-column="49" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/map.py">
+    <entry file="file://$PROJECT_DIR$/Game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="111" column="86" selection-start-line="111" selection-start-column="86" selection-end-line="111" selection-end-column="86" />
+        <state relative-caret-position="221">
+          <caret line="40" column="103" selection-start-line="40" selection-start-column="103" selection-end-line="40" selection-end-column="103" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <marker date="1541291629358" expanded="true" signature="79:84" ph="..." />
-            <marker date="1541291629358" expanded="true" signature="2312:2766" ph="..." />
           </folding>
         </state>
       </provider>

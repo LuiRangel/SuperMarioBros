@@ -38,7 +38,7 @@ class Game:
 
         while not eloop.finished:
             eloop.check_events(self.ai_settings, self.menu, self.mario)
-            self.mario.update(self.map.rock, self.map.metal, self.map.stone, self.map.brick)
+            self.mario.update(self.map.rock, self.map.metal, self.map.stone, self.map.brick, self.map.q)
             self.update_screen()
 
             self.sb.check_high_score(self.sb)
