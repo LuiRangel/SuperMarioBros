@@ -44,9 +44,10 @@ class Mario(Sprite):
         self.moving_up = False
         self.moving_down = False
         self.jump = False
+        self.jump_cut = False
         self.grounded = True
 
-    def update(self, rock, metal):
+    def update(self, rock, metal, stone, brick):
         self.acc = vec(0, self.ai_settings.gravity)
 
         if self.moving_right and self.rect.right < self.screen_rect.right:
@@ -102,42 +103,56 @@ class Mario(Sprite):
             self.jump = False
             self.grounded = False
 
+        if self.jump_cut:
+            if self.pos.y < 400:
+                self.pos.y = -3
+
         # ========================================
 
         # ------------------------------------------------------------------------
 
-        self.acc.y += self.ai_settings.player_acc
-        if self.rect.collidelist(rock) == -1 and self.rect.bottom < self.screen_rect.bottom:
-            self.acc.y -= self.ai_settings.player_acc
+        # self.acc.y += self.ai_settings.player_acc
+        # if self.rect.collidelist(rock) == -1 and self.rect.bottom < self.screen_rect.bottom:
+        #     self.acc.y -= self.ai_settings.player_acc
 
-        if self.rect.bottom < self.screen_rect.bottom:
-            self.rect.centery += self.ai_settings.player_speed
-            for block in rock:
-                if self.rect.colliderect(block):
-                    self.vel.y = 0
-                    self.pos.y = block.top
-                    self.height = 0
-                    self.grounded = True
-        elif self.rect.bottom == self.screen_rect.bottom:
-            self.ai_settings.finished = True
+        if self.vel.y > 0:
+            if self.rect.bottom < self.screen_rect.bottom:
+                self.rect.centery += self.ai_settings.player_speed
+                for block in rock:
+                    if self.rect.colliderect(block):
+                        self.vel.y = 0
+                        self.pos.y = block.top
+                        self.height = 0
+                        self.grounded = True
+            elif self.rect.bottom == self.screen_rect.bottom:
+                self.ai_settings.finished = True
 
-        if self.rect.bottom < self.screen_rect.bottom:
-            self.rect.centery += self.ai_settings.player_speed
-            for block in rock:
-                if self.rect.colliderect(block):
-                    self.vel.y = 0
-                    self.pos.y = block.top
-                    self.height = 0
-                    self.grounded = True
+            if self.rect.bottom < self.screen_rect.bottom:
+                self.rect.centery += self.ai_settings.player_speed
+                for block in metal:
+                    if self.rect.colliderect(block):
+                        self.vel.y = 0
+                        self.pos.y = block.top
+                        self.height = 0
+                        self.grounded = True
 
-        if self.rect.bottom < self.screen_rect.bottom:
-            self.rect.centery += self.ai_settings.player_speed
-            for block in metal:
-                if self.rect.colliderect(block):
-                    self.vel.y = 0
-                    self.pos.y = block.top
-                    self.height = 0
-                    self.grounded = True
+            if self.rect.bottom < self.screen_rect.bottom:
+                self.rect.centery += self.ai_settings.player_speed
+                for block in stone:
+                    if self.rect.colliderect(block):
+                        self.vel.y = 0
+                        self.pos.y = block.top
+                        self.height = 0
+                        self.grounded = True
+
+            if self.rect.bottom < self.screen_rect.bottom:
+                self.rect.centery += self.ai_settings.player_speed
+                for block in brick:
+                    if self.rect.colliderect(block):
+                        self.vel.y = 0
+                        self.pos.y = block.top
+                        self.height = 0
+                        self.grounded = True
 
         if self.acc.x == 0:
             self.image = pygame.transform.scale(self.images[0], (50, 50))
@@ -155,7 +170,7 @@ class Mario(Sprite):
         #     # self.pos += self.vel + (0.5 * self.acc)
 
         #  jump acc line
-        self.acc.y += self.vel.y * self.ai_settings.player_friction  # -0.0099
+        self.acc.y += self.vel.y * self.ai_settings.player_friction
 
         self.acc.x += self.vel.x * self.ai_settings.player_friction
         self.vel += self.acc
