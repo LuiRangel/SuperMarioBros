@@ -18,7 +18,8 @@ class Game:
 
         self.screen_rect = self.screen.get_rect()
         self.menu = Menu(self.screen, 'Super Mario Bros', 'TOP - ')
-        self.map = Map(self.screen, 'images/world1-1.txt', 'rock_block', 'metal_block', 'stone_block', 'brick_block')
+        self.map = Map(self.screen, 'images/world1-1.txt', 'rock_block', 'metal_block', 'stone_block', 'brick_block',
+                       'question_block', 'pipe-1')
         self.mario = Mario(self.ai_settings, self.screen, self.map, self)
         self.sb = Scoreboard(self.ai_settings, self.screen)
         self.load_data()

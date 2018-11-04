@@ -155,7 +155,7 @@ class Mario(Sprite):
         #     # self.pos += self.vel + (0.5 * self.acc)
 
         #  jump acc line
-        self.acc.y += self.vel.y * self.ai_settings.player_friction
+        self.acc.y += self.vel.y * self.ai_settings.player_friction  # -0.0099
 
         self.acc.x += self.vel.x * self.ai_settings.player_friction
         self.vel += self.acc

@@ -3,9 +3,9 @@ from imagerect import ImageRect
 
 
 class Map:
-    BLOCK_SIZE = 30
+    BLOCK_SIZE = 48
 
-    def __init__(self, screen, worldfile, rockfile, metalfile, stonefile, brickfile):
+    def __init__(self, screen, worldfile, rockfile, metalfile, stonefile, brickfile, quesfile, pipefile):
         self.screen = screen
         self.screen_rect = screen.get_rect()
         self.filename = worldfile
@@ -16,12 +16,16 @@ class Map:
         self.stone = []
         self.metal = []
         self.brick = []
+        self.q = []
+        self.pipe = []
         sz = Map.BLOCK_SIZE
 
         self.rock_block = ImageRect(screen, rockfile, sz, sz)
         self.stone_block = ImageRect(screen, stonefile, sz, sz)
         self.metal_block = ImageRect(screen, metalfile, sz, sz)
         self.brick_block = ImageRect(screen, brickfile, sz, sz)
+        self.q_block = ImageRect(screen, quesfile, sz, sz)
+        self.pipe_block = ImageRect(screen, pipefile, sz, sz)
 
         self.deltax = self.deltay = Map.BLOCK_SIZE
         self.spawnx = 0
@@ -52,6 +56,10 @@ class Map:
                     self.rock.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
                 if col == 'b':
                     self.brick.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
+                if col == 'q':
+                    self.q.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
+                if col == 'P':
+                    self.pipe.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
 
     # shift blocks depending on mario's relation to the middle of the screen to simulate scrolling
     def shift_level(self, x):
@@ -64,6 +72,10 @@ class Map:
         for block in self.rock:
             block.x += self.map_shift
         for block in self.brick:
+            block.x += self.map_shift
+        for block in self.q:
+            block.x += self.map_shift
+        for block in self.pipe:
             block.x += self.map_shift
 
     def blitme(self):
@@ -87,3 +99,14 @@ class Map:
                 del rect
             else:
                 self.screen.blit(self.brick_block.image, rect)
+        for rect in self.q:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                self.screen.blit(self.q_block.image, rect)
+        for rect in self.pipe:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                # self.pipe_block.image = pygame.transform.scale(self.pipe_block.image, (50, 50))
+                self.screen.blit(pygame.transform.scale(self.pipe_block.image, (75, 75)), rect)
