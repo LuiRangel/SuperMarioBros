@@ -1,18 +1,35 @@
 import pygame.font
 
 
-class Menu:
+class Menu():
 
-    def __init__(self, screen, title, score_menu):
+    def __init__(self, screen, title, score_menu, current_score, coin_count, timer, ai_settings, mario):
         self.screen = screen
         self.screen_rect = screen.get_rect()
+        self.ai_settings = ai_settings
+        self.BLACK = (0, 0, 0)
+        self.WHITE = (255, 255, 255)
+        self.font = pygame.font.SysFont(None, 50)
 
         self.title_font = pygame.font.SysFont(None, 70)
-        self.score_menu_font = pygame.font.SysFont(None, 50)
         self.title_color = (254, 249, 27)
-        self.score_menu_color = (255, 255, 255)
         self.title = title
+
+        self.score_menu_font = pygame.font.SysFont(None, 50)
+        self.score_menu_color = (255, 255, 255)
         self.score_menu = score_menu
+
+        self.current_score_font = pygame.font.SysFont(None, 50)
+        self.current_score_color = (255, 255, 255)
+        self.current_score = current_score
+
+        self.coin_count_font = pygame.font.SysFont(None, 50)
+        self.coin_count_color = (255, 255, 255)
+        self.coin_count = coin_count
+
+        self.timer_font = pygame.font.SysFont(None, 50)
+        self.timer_color = (255, 255, 255)
+        self.timer = timer
 
         self.image = pygame.image.load('images/logo.png')
         self.rect = self.image.get_rect()
@@ -24,6 +41,11 @@ class Menu:
         self.play_button = Button(screen, '1 Player Game')
         self.prep_title(self.title)
         self.prep_score_menu(self.score_menu)
+        self.prep_current_stats(self.current_score, self.coin_count, self.timer)
+
+        if mario.death == True:
+            self.prep_lives()
+            self.draw_lives()
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
@@ -43,12 +65,41 @@ class Menu:
         self.score_menu_image_rect.centerx = self.screen_rect.centerx - 60
         self.score_menu_image_rect.centery = self.screen_rect.centery + 200
 
-    def draw_menu(self):
-        #self.screen.blit(self.title_image, self.title_image_rect)
-        self.screen.blit(self.score_menu_image, self.score_menu_image_rect)
-        #self.play_button.draw_button()
-        #self.score_button.draw_button()
+    def prep_current_stats(self, current_score, coin_count, timer):
+        self.current_score_image = self.current_score_font.render(current_score, True, self.current_score_color, None)
+        self.current_score_image_rect = self.current_score_image.get_rect()
+        self.current_score_image_rect.centerx = self.screen_rect.left + 105
+        self.current_score_image_rect.centery = self.screen_rect.top + 30
 
+        self.coin_count_image = self.coin_count_font.render(coin_count, True, self.coin_count_color, None)
+        self.coin_count_image_rect = self.current_score_image.get_rect()
+        self.coin_count_image_rect.centerx = self.screen_rect.centerx + 5
+        self.coin_count_image_rect.centery = self.screen_rect.top + 30
+
+        self.timer_image = self.timer_font.render(timer, True, self.timer_color, None)
+        self.timer_image_rect = self.timer_image.get_rect()
+        self.timer_image_rect.centerx = self.screen_rect.right - 102
+        self.timer_image_rect.centery = self.screen_rect.top + 30
+
+    def prep_lives(self):
+        lives_str = str(self.ai_settings.mario_lives)
+        self.lives_image = self.font.render(lives_str, True, self.WHITE, self.BLACK)
+
+        self.lives_rect = self.lives_image.get_rect()
+        self.lives_rect.centerx = self.screen_rect.centerx
+        self.lives_rect.centery = self.screen_rect.centery
+
+    def draw_menu(self):
+        self.screen.blit(self.score_menu_image, self.score_menu_image_rect)
+
+    def draw_stats(self):
+        self.screen.blit(self.current_score_image, self.current_score_image_rect)
+        self.screen.blit(self.coin_count_image, self.coin_count_image_rect)
+        self.screen.blit(self.timer_image, self.timer_image_rect)
+
+    def draw_lives(self):
+        self.screen.fill(self.BLACK)
+        self.screen.blit(self.lives_image, self.lives_rect)
 
 class Button:
 
