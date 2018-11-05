@@ -1,6 +1,8 @@
 import pygame
 from pygame.sprite import Sprite
 vec = pygame.math.Vector2
+from time import sleep
+from scoreboard import Scoreboard
 
 
 class Mario(Sprite):
@@ -46,6 +48,7 @@ class Mario(Sprite):
         self.jump = False
         self.jump_cut = False
         self.grounded = True
+        self.death = False
 
     def update(self, rock, metal, stone, brick, q):
         self.acc = vec(0, self.ai_settings.gravity)
@@ -109,6 +112,16 @@ class Mario(Sprite):
 
         # ========================================
 
+        if self.rect.top == self.screen_rect.bottom:
+            self.death = True
+            self.pos.y += 1
+            self.ai_settings.mario_lives -= 1
+            pygame.mixer.Sound.play(self.ai_settings.death)
+            pygame.mixer.music.stop()
+            sleep(4)
+            self.death = True
+            self.ai_settings.finished = True
+
         # ------------------------------------------------------------------------
 
         # self.acc.y += self.ai_settings.player_acc
@@ -156,12 +169,15 @@ class Mario(Sprite):
             if self.rect.collidelist(q) != -1:
                 self.pos.y -= self.vel.y
                 self.vel.y = 0
+                self.acc.y = 0
             if self.rect.collidelist(brick) != -1:
                 self.pos.y -= self.vel.y
                 self.vel.y = 0
+                self.acc.y = 0
             if self.rect.collidelist(stone) != -1:
                 self.pos.y -= self.vel.y
                 self.vel.y = 0
+                self.acc.y = 0
 
         if self.acc.x == 0:
             self.image = pygame.transform.scale(self.images[0], (50, 50))

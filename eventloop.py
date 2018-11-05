@@ -1,10 +1,11 @@
 import sys
 import pygame
-from mario import Mario
+
 
 class EventLoop:
-    def __init__(self, finished):
+    def __init__(self, finished, display_lives):
         self.finished = finished
+        self.display_lives = display_lives
 
     @staticmethod
     def check_events(ai_settings, menu, mario):
@@ -62,8 +63,8 @@ class EventLoop:
         """Starts a new game when the player clicks play"""
         button_clicked = menu.play_button.rect.collidepoint(mouse_x, mouse_y)
         if button_clicked and not ai_settings.finished:
-            pygame.mixer.music.play(2, 0.0)
-
+            pygame.mixer.music.play(-1)
+            EventLoop.display_lives = True
             # Hide the mouse cursor.
             pygame.mouse.set_visible(False)
             ai_settings.finished = True
