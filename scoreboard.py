@@ -1,6 +1,7 @@
 import pygame.font
 from os import path
 
+
 class Scoreboard():
 
     def __init__(self, ai_settings, screen):
@@ -13,6 +14,11 @@ class Scoreboard():
 
         self.prep_score()
         self.prep_high_score()
+
+    def reset_stats(self):
+        self.ai_settings.score = 0
+        self.ai_settings.time = 0
+        self.ai_settings.time = 0
 
     def prep_score(self):
         score_str = str(self.ai_settings.score)
@@ -34,6 +40,7 @@ class Scoreboard():
         self.time_rect.centerx = self.screen_rect.right - 100
         self.time_rect.centery = self.screen_rect.top + 60
 
+
     def prep_high_score(self):
         high_score = int(round(self.ai_settings.high_score, -1))
         high_score_str = "{:,}".format(high_score)
@@ -43,12 +50,13 @@ class Scoreboard():
         self.high_score_rect.centerx = self.screen_rect.centerx + 40
         self.high_score_rect.centery = self.screen_rect.centery + 200
 
+    def dec_timer(self):
+        self.ai_settings.time -= 1
 
     def show_stats(self):
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.coins_image, self.coins_rect)
         self.screen.blit(self.time_image, self.time_rect)
-        #self.screen.blit(self.high_score_image, self.high_score_rect)
 
     def display_high_score(self):
         self.screen.blit(self.high_score_image, self.high_score_rect)

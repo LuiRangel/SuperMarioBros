@@ -1,10 +1,12 @@
 import sys
 import pygame
-from mario import Mario
+from time import sleep
+
 
 class EventLoop:
-    def __init__(self, finished):
+    def __init__(self, finished, display_lives):
         self.finished = finished
+        self.display_lives = display_lives
 
     @staticmethod
     def check_events(ai_settings, menu, mario):
@@ -12,7 +14,7 @@ class EventLoop:
             if event.type == pygame.QUIT:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                EventLoop.check_keydown_events(event, mario, ai_settings)
+                EventLoop.check_keydown_events(event, mario)
             if event.type == pygame.KEYUP:
                 EventLoop.check_keyup_events(event, mario)
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -20,7 +22,7 @@ class EventLoop:
                 EventLoop.check_play_button(ai_settings, menu, mouse_x, mouse_y)
 
     @staticmethod
-    def check_keydown_events(event, mario, ai_settings):
+    def check_keydown_events(event, mario):
         if event.key == pygame.K_RIGHT:
             print('RIGHT')
             mario.moving_right = True
@@ -62,8 +64,8 @@ class EventLoop:
         """Starts a new game when the player clicks play"""
         button_clicked = menu.play_button.rect.collidepoint(mouse_x, mouse_y)
         if button_clicked and not ai_settings.finished:
-            pygame.mixer.music.play(2, 0.0)
-
+            pygame.mixer.music.play(-1)
+            EventLoop.display_lives = True
             # Hide the mouse cursor.
             pygame.mouse.set_visible(False)
             ai_settings.finished = True
