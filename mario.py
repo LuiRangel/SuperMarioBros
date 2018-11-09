@@ -47,7 +47,7 @@ class Mario(Sprite):
         self.jump_cut = False
         self.grounded = True
 
-    def update(self, rock, metal, stone, brick, q):
+    def update(self, rock, metal, stone, brick, q, p1, p2):
         self.acc = vec(0, self.ai_settings.gravity)
 
         if self.moving_right and self.rect.right < self.screen_rect.right:
@@ -124,35 +124,34 @@ class Mario(Sprite):
                         self.pos.y = block.top
                         self.height = 0
                         self.grounded = True
+                for block in brick:
+                    if self.rect.colliderect(block):
+                        self.pos.y -= self.vel.y * 1.5
+                        self.vel.y = 0
+                        self.height = 0
+                        self.grounded = True
+                for block in q:
+                    if self.rect.colliderect(block):
+                        self.pos.y -= self.vel.y * 1.5
+                        self.vel.y = 0
+                        self.height = 0
+                        self.grounded = True
+                for block in p1:
+                    if self.rect.colliderect(block):
+                        self.pos.y -= self.vel.y * 1.5
+                        self.vel.y = 0
+                        self.height = 0
+                        self.grounded = True
+                for block in p2:
+                    if self.rect.colliderect(block):
+                        self.pos.y -= self.vel.y * 1.5
+                        self.vel.y = 0
+                        self.height = 0
+                        self.grounded = True
+
             elif self.rect.bottom == self.screen_rect.bottom:
                 self.ai_settings.finished = True
 
-            # if self.rect.bottom < self.screen_rect.bottom:
-            #     self.rect.centery += self.ai_settings.player_speed
-            #     for block in metal:
-            #         if self.rect.colliderect(block):
-            #             self.vel.y = 0
-            #             self.pos.y = block.top
-            #             self.height = 0
-            #             self.grounded = True
-            #
-            # if self.rect.bottom < self.screen_rect.bottom:
-            #     self.rect.centery += self.ai_settings.player_speed
-            #     for block in stone:
-            #         if self.rect.colliderect(block):
-            #             self.vel.y = 0
-            #             self.pos.y = block.top
-            #             self.height = 0
-            #             self.grounded = True
-            #
-            # if self.rect.bottom < self.screen_rect.bottom:
-            #     self.rect.centery += self.ai_settings.player_speed
-            #     for block in brick:
-            #         if self.rect.colliderect(block):
-            #             self.vel.y = 0
-            #             self.pos.y = block.top
-            #             self.height = 0
-            #             self.grounded = True
             if self.rect.collidelist(q) != -1:
                 self.pos.y -= self.vel.y
                 self.vel.y = 0
