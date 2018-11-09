@@ -5,7 +5,7 @@ from imagerect import ImageRect
 class Map:
     BLOCK_SIZE = 48
 
-    def __init__(self, screen, worldfile, rockfile, metalfile, stonefile, brickfile, quesfile, pipefile, l_pipefile):
+    def __init__(self, screen, worldfile, rockfile, metalfile, stonefile, brickfile, quesfile, pipefile, l_pipefile, polefile, flagfile, topfile, castlefile):
         self.screen = screen
         self.screen_rect = screen.get_rect()
         self.filename = worldfile
@@ -19,6 +19,10 @@ class Map:
         self.q = []
         self.pipe = []
         self.l_pipe = []
+        self.pole = []
+        self.flags = []
+        self.tops = []
+        self.castle = []
         sz = Map.BLOCK_SIZE
 
         self.rock_block = ImageRect(screen, rockfile, sz, sz)
@@ -28,6 +32,10 @@ class Map:
         self.q_block = ImageRect(screen, quesfile, sz, sz)
         self.pipe_block = ImageRect(screen, pipefile, sz, sz)
         self.long_pipe = ImageRect(screen, l_pipefile, sz, sz)
+        self.pole_block = ImageRect(screen, polefile, sz, sz)
+        self.flag = ImageRect(screen, flagfile, sz, sz)
+        self.top = ImageRect(screen, topfile, sz, sz)
+        self.cas = ImageRect(screen, castlefile, sz, sz)
 
         self.deltax = self.deltay = Map.BLOCK_SIZE
         self.spawnx = 0
@@ -61,10 +69,21 @@ class Map:
                 if col == 'q':
                     self.q.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
                 if col == 'P':
-                    self.pipe.append(pygame.Rect(ncol * dx, nrow * dy - 28, self.pipe_block.rect.width, self.pipe_block.rect.height + 100))
+                    self.pipe.append(pygame.Rect(ncol * dx, nrow * dy - 28, self.pipe_block.rect.width,
+                                                 self.pipe_block.rect.height + 100))
                 if col == 'p':
                     self.l_pipe.append(pygame.Rect(ncol * dx, nrow * dy - 28, self.long_pipe.rect.width,
                                                    self.long_pipe.rect.height))
+                if col == '|':
+                    self.pole.append(pygame.Rect(ncol * dx, nrow * dy, self.pole_block.rect.width,
+                                                 self.pole_block.rect.height))
+                if col == '>':
+                    self.flags.append(pygame.Rect(ncol * dx, nrow * dy, self.flag.rect.width,
+                                                  self.flag.rect.height))
+                if col == 'o':
+                    self.tops.append(pygame.Rect(ncol * dx, nrow * dy, self.top.rect.width, self.top.rect.height))
+                if col == 'C':
+                    self.castle.append(pygame.Rect(ncol * dx, nrow * dy, self.cas.rect.width, self.cas.rect.height))
 
     # shift blocks depending on mario's relation to the middle of the screen to simulate scrolling
     def shift_level(self, x):
@@ -83,6 +102,14 @@ class Map:
         for block in self.pipe:
             block.x += self.map_shift
         for block in self.l_pipe:
+            block.x += self.map_shift
+        for block in self.pole:
+            block.x += self.map_shift
+        for block in self.flags:
+            block.x += self.map_shift
+        for block in self.tops:
+            block.x += self.map_shift
+        for block in self.castle:
             block.x += self.map_shift
 
     def blitme(self):
@@ -121,3 +148,23 @@ class Map:
                 del rect
             else:
                 self.screen.blit(pygame.transform.scale(self.long_pipe.image, (75, 75)), rect)
+        for rect in self.pole:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                self.screen.blit(self.pole_block.image, rect)
+        for rect in self.flags:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                self.screen.blit(self.flag.image, rect)
+        for rect in self.tops:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                self.screen.blit(self.top.image, rect)
+        for rect in self.castle:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                self.screen.blit(self.cas.image, rect)

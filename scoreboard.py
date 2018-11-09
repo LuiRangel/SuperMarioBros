@@ -1,7 +1,8 @@
 import pygame.font
 from os import path
 
-class Scoreboard():
+
+class Scoreboard:
 
     def __init__(self, ai_settings, screen):
         self.screen = screen

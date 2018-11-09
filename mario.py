@@ -61,11 +61,32 @@ class Mario(Sprite):
             # --------------------------
 
             # deceleration lets mario slide through blocks; collision is detected only when button is held
-            if self.rect.collidelist(metal) != -1:
+            if self.rect.collidelist(brick) != -1:
                 print('collision')
+                self.pos.x -= self.vel.x * 5
                 self.vel.x = 0
                 self.acc.x = 0
                 self.pos.x -= 0.01
+            if self.rect.collidelist(stone) != -1:
+                print('collision')
+                self.pos.x -= self.vel.x * 5
+                self.vel.x = 0
+                self.acc.x = 0
+            if self.rect.collidelist(q) != -1:
+                print('collision')
+                self.pos.x -= self.vel.x * 5
+                self.vel.x = 0
+                self.acc.x = 0
+            if self.rect.collidelist(p1) != -1:
+                print('collision')
+                self.pos.x -= self.vel.x * 5
+                self.vel.x = 0
+                self.acc.x = 0
+            if self.rect.collidelist(p2) != -1:
+                print('collision')
+                self.pos.x -= self.vel.x * 5
+                self.vel.x = 0
+                self.acc.x = 0
 
         if self.moving_left and self.rect.left > 0:
             self.acc.x = -self.ai_settings.player_acc
@@ -78,17 +99,33 @@ class Mario(Sprite):
             # --------------------------
 
             # deceleration lets mario slide through blocks; collision is detected only when button is held
-            if self.rect.collidelist(metal) != -1:
+            if self.rect.collidelist(brick) != -1:
                 print('collision')
+                self.pos.x -= self.vel.x * 5
                 self.vel.x = 0
                 self.acc.x = 0
-                #self.pos.x += 0.01
+            if self.rect.collidelist(stone) != -1:
+                print('collision')
+                self.pos.x -= self.vel.x * 5
+                self.vel.x = 0
+                self.acc.x = 0
+            if self.rect.collidelist(q) != -1:
+                print('collision')
+                self.pos.x -= self.vel.x * 5
+                self.vel.x = 0
+                self.acc.x = 0
+            if self.rect.collidelist(p1) != -1:
+                print('collision')
+                self.pos.x -= self.vel.x * 5
+                self.vel.x = 0
+                self.acc.x = 0
+            if self.rect.collidelist(p2) != -1:
+                print('collision')
+                self.pos.x -= self.vel.x * 5
+                self.vel.x = 0
+                self.acc.x = 0
 
         # -----------------------------------------------------------------------
-        if self.moving_up and self.rect.top > self.screen_rect.top:
-            self.rect.centery -= self.ai_settings.player_speed
-            if self.rect.collidelist(rock) != -1:
-                self.rect.centery += self.ai_settings.player_speed
 
         # jump code ================(needs tweaking look at height and flags he's able to jump multiple times)==========
         if self.jump and self.grounded:
@@ -102,26 +139,24 @@ class Mario(Sprite):
         if self.height == 0:
             self.jump = False
             self.grounded = False
-
-        # if self.jump_cut:
-        #     if self.pos.y < 400:
-        #         self.pos.y = -3
-
         # ========================================
 
         # ------------------------------------------------------------------------
-
-        # self.acc.y += self.ai_settings.player_acc
-        # if self.rect.collidelist(rock) == -1 and self.rect.bottom < self.screen_rect.bottom:
-        #     self.acc.y -= self.ai_settings.player_acc
-
         if self.vel.y > 0:
+            # increase drop speed
+            # self.vel.y = self.vel.y * 1.05
             if self.rect.bottom < self.screen_rect.bottom:
                 self.rect.centery += self.ai_settings.player_speed
                 for block in rock:
                     if self.rect.colliderect(block):
                         self.vel.y = 0
                         self.pos.y = block.top
+                        self.height = 0
+                        self.grounded = True
+                for block in stone:
+                    if self.rect.colliderect(block):
+                        self.pos.y -= self.vel.y * 1.5
+                        self.vel.y = 0
                         self.height = 0
                         self.grounded = True
                 for block in brick:
@@ -152,15 +187,15 @@ class Mario(Sprite):
             elif self.rect.bottom == self.screen_rect.bottom:
                 self.ai_settings.finished = True
 
-            if self.rect.collidelist(q) != -1:
-                self.pos.y -= self.vel.y
-                self.vel.y = 0
-            if self.rect.collidelist(brick) != -1:
-                self.pos.y -= self.vel.y
-                self.vel.y = 0
-            if self.rect.collidelist(stone) != -1:
-                self.pos.y -= self.vel.y
-                self.vel.y = 0
+            # if self.rect.collidelist(q) != -1:
+            #     self.pos.y -= self.vel.y
+            #     self.vel.y = 0
+            # if self.rect.collidelist(brick) != -1:
+            #     self.pos.y -= self.vel.y
+            #     self.vel.y = 0
+            # if self.rect.collidelist(stone) != -1:
+            #     self.pos.y -= self.vel.y
+            #     self.vel.y = 0
 
         if self.acc.x == 0:
             self.image = pygame.transform.scale(self.images[0], (50, 50))
