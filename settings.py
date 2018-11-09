@@ -12,16 +12,19 @@ class Settings:
         # music
         self.theme = pygame.mixer.music.load('sounds/super_mario_bros_theme.wav')
         self.jump_sound = pygame.mixer.Sound('sounds/jump.wav')
+        self.death = pygame.mixer.Sound('sounds/death.wav')
 
         # game_active flag
         self.finished = False
+        self.display_lives = False
 
         # player settings
         self.player_speed = 1
-        self.player_acc = 0.025  # 0.01
+        self.player_acc = 0.02  # 0.01
         self.player_jump_acc = 4
         self.player_friction = -0.012
-        self.gravity = 0.01
+        self.gravity = 0.015
+        self.mario_lives = 3
 
         # scoring
         self.score = 0
