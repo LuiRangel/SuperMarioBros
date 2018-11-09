@@ -103,9 +103,9 @@ class Mario(Sprite):
             self.jump = False
             self.grounded = False
 
-        if self.jump_cut:
-            if self.pos.y < 400:
-                self.pos.y = -3
+        # if self.jump_cut:
+        #     if self.pos.y < 400:
+        #         self.pos.y = -3
 
         # ========================================
 
