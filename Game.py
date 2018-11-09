@@ -19,7 +19,7 @@ class Game:
         self.screen_rect = self.screen.get_rect()
         self.menu = Menu(self.screen, 'Super Mario Bros', 'TOP - ')
         self.map = Map(self.screen, 'images/world1-1.txt', 'rock_block', 'metal_block', 'stone_block', 'brick_block',
-                       'question_block', 'pipe-1')
+                       'question_block', 'pipe-1', 'pipe-2')
         self.mario = Mario(self.ai_settings, self.screen, self.map, self)
         self.sb = Scoreboard(self.ai_settings, self.screen)
         self.load_data()
@@ -38,7 +38,7 @@ class Game:
 
         while not eloop.finished:
             eloop.check_events(self.ai_settings, self.menu, self.mario)
-            self.mario.update(self.map.rock, self.map.metal, self.map.stone, self.map.brick, self.map.q)
+            self.mario.update(self.map.rock, self.map.metal, self.map.stone, self.map.brick, self.map.q, self.map.pipe, self.map.l_pipe)
             self.update_screen()
 
             self.sb.check_high_score(self.sb)
