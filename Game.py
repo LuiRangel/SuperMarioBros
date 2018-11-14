@@ -80,8 +80,8 @@ class Game:
             #print('pos - y')
             #print(self.mario.pos.y)
             if float(self.mario.pos.x) + float(self.mario.acc.x) >= float(self.ai_settings.screen_half_width) \
-                    and self.mario.moving_right:
-                diff = float(self.mario.pos.x) - float(self.ai_settings.screen_half_width)
+                    and abs(float(self.mario.vel.x)) > 0:
+                diff = float(self.mario.pos.x) - self.ai_settings.screen_half_width
                 #print('diff')
                 #print(diff)
                 self.mario.pos.x = self.ai_settings.screen_half_width
