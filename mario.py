@@ -6,12 +6,13 @@ vec = pygame.math.Vector2
 
 class Mario(Sprite):
 
-    def __init__(self, ai_settings, screen, map, Game):
+    def __init__(self, ai_settings, screen, map, Game, powerups):
         super(Mario, self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
         self.map = map
         self.game = Game
+        self.powerups = powerups
         self.screen_rect = screen.get_rect()
         self.orientation = "Right"
 
@@ -48,8 +49,8 @@ class Mario(Sprite):
         self.death = False
 
     def load_images(self):
-        self.standing_frames = [pygame.transform.scale(pygame.image.load('images/mario.png'), (50, 50))]
-        self.walk_frames_r = [pygame.transform.scale(pygame.image.load('images/mario_run-1.png'), (50, 50)), pygame.transform.scale(pygame.image.load('images/mario_run-2.png'), (50, 50))]
+        self.standing_frames = [pygame.transform.scale(pygame.image.load('images/mario.png'), (40, 40))]
+        self.walk_frames_r = [pygame.transform.scale(pygame.image.load('images/mario_run-1.png'), (40, 40)), pygame.transform.scale(pygame.image.load('images/mario_run-2.png'), (40, 40))]
         self.walk_frames_l = []
 
         # self.standing_frames = [pygame.image.load('images/mario.png')]
@@ -59,7 +60,7 @@ class Mario(Sprite):
 
         for frame in self.walk_frames_r:
             self.walk_frames_l.append(pygame.transform.flip(frame, True, False))
-        self.jump_frame = pygame.transform.scale(pygame.image.load('images/mario_jump.png'), (50, 50))
+        self.jump_frame = pygame.transform.scale(pygame.image.load('images/mario_jump.png'), (40, 40))
 
     def update(self, rock, metal, stone, brick, q, p1, p2, coins):
         self.animate()
@@ -120,59 +121,92 @@ class Mario(Sprite):
         # self.acc.y += self.ai_settings.player_acc
         # if self.rect.collidelist(rock) == -1 and self.rect.bottom < self.screen_rect.bottom:
         #     self.acc.y += self.ai_settings.player_acc
+        if self.rect.bottom < self.screen_rect.bottom:
+            self.rect.centery += self.ai_settings.player_speed
 
         if self.vel.y > 0:
             if self.rect.bottom < self.screen_rect.bottom:
                 self.rect.centery += self.ai_settings.player_speed
                 for block in rock:
                     if self.rect.colliderect(block):
-                        print('Rock: ', block)
+                        print('Mario: ', self.pos.x)
+                        #print('Rock:', block)
                         self.vel.y = 0
                         self.pos.y = block.top
                         self.height = 0
                         self.grounded = True
                         self.jumping = False
+                        break
             elif self.rect.bottom == self.screen_rect.bottom:
                 self.ai_settings.finished = True
 
+            collided = False
             if self.rect.bottom < self.screen_rect.bottom:
                 self.rect.centery += self.ai_settings.player_speed
                 for block in metal:
                     if self.rect.colliderect(block):
+                        collided = True
                         print('Metal: ', block)
                         self.vel.y = 0
                         self.pos = block.top
                         self.height = 0
                         self.grounded = True
                         self.jumping = False
+                        break
 
-            if self.rect.bottom < self.screen_rect.bottom:
+            if not collided and self.rect.bottom < self.screen_rect.bottom:
                 self.rect.centery += self.ai_settings.player_speed
                 for block in stone:
                     if self.rect.colliderect(block):
+                        collided = True
                         print('Stone: ', block)
                         self.vel.y = 0
                         self.pos.y = block.top
                         self.height = 0
                         self.grounded = True
                         self.jumping = False
+                        break
 
-            if self.rect.bottom < self.screen_rect.bottom:
+            if not collided and self.rect.bottom < self.screen_rect.bottom:
                 self.rect.centery += self.ai_settings.player_speed
                 for block in brick:
                     if self.rect.colliderect(block):
+                        collided = True
                         print('brick: ', block)
                         self.vel.y = 0
                         self.pos.y = block.top
                         self.height = 0
                         self.grounded = True
                         self.jumping = False
+                        break
 
-            if self.rect.bottom < self.screen_rect.bottom:
+            if not collided and self.rect.bottom < self.screen_rect.bottom:
                 self.rect.centery += self.ai_settings.player_speed
                 for block in q:
                     if self.rect.colliderect(block):
                         print('Question: ', block)
+                        self.vel.y = 0
+                        self.pos.y = block.top
+                        self.height = 0
+                        self.grounded = True
+                        self.jumping = False
+
+            if not collided and self.rect.bottom < self.screen_rect.bottom:
+                self.rect.centery += self.ai_settings.player_speed
+                for block in p1:
+                    if self.rect.colliderect(block):
+                        print('p1: ', block)
+                        self.vel.y = 0
+                        self.pos.y = block.top
+                        self.height = 0
+                        self.grounded = True
+                        self.jumping = False
+
+            if not collided and self.rect.bottom < self.screen_rect.bottom:
+                self.rect.centery += self.ai_settings.player_speed
+                for block in p2:
+                    if self.rect.colliderect(block):
+                        print('p2: ', block)
                         self.vel.y = 0
                         self.pos.y = block.top
                         self.height = 0
@@ -187,6 +221,9 @@ class Mario(Sprite):
                     self.ai_settings.coins += 1
                     self.ai_settings.score += 200
                     del coins[0]
+
+        #pow_hits = pygame.sprite.spritecollide(self, self.powerups, True)
+
 
             # if self.rect.collidelist(brick) != -1:
             #     self.pos.y -= self.vel.y

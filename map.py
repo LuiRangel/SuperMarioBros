@@ -5,7 +5,7 @@ from imagerect import ImageRect
 class Map:
     BLOCK_SIZE = 48
 
-    def __init__(self, screen, worldfile, rockfile, metalfile, stonefile, brickfile, quesfile, pipefile, pipefile_1, coinfile,  polefile, flagfile, topfile, castlefile):
+    def __init__(self, screen, worldfile, rockfile, metalfile, stonefile, brickfile, quesfile, pipefile, pipefile_1, coinfile,  polefile, flagfile, topfile, castlefile, goombafile, koopafile):
         self.screen = screen
         self.screen_rect = screen.get_rect()
         self.filename = worldfile
@@ -24,6 +24,8 @@ class Map:
         self.flags = []
         self.tops = []
         self.castle = []
+        self.goombas = []
+        self.koopas = []
         sz = Map.BLOCK_SIZE
 
         self.rock_block = ImageRect(screen, rockfile, sz, sz)
@@ -38,13 +40,20 @@ class Map:
         self.flag = ImageRect(screen, flagfile, sz, sz)
         self.top = ImageRect(screen, topfile, sz, sz)
         self.cas = ImageRect(screen, castlefile, sz, sz)
+        self.goom = ImageRect(screen, goombafile, sz, sz)
+        self.koop = ImageRect(screen, koopafile, sz, sz)
 
         self.deltax = self.deltay = Map.BLOCK_SIZE
         self.spawnx = 0
         self.spawny = 0
+        self.g_spawnx = 0
+        self.g_spawny = 0
+        self.k_spawnx = 0
+        self.k_spawny = 0
         self.map_shift = 0
 
         self.build()
+
 
     def __str__(self): return 'maze(' + self.filename + ')'
 
@@ -87,6 +96,14 @@ class Map:
                     self.tops.append(pygame.Rect(ncol * dx, nrow * dy, self.top.rect.width, self.top.rect.height))
                 if col == 'C':
                     self.castle.append(pygame.Rect(ncol * dx, nrow * dy, self.cas.rect.width, self.cas.rect.height))
+                if col == 'g':
+                    self.g_spawnx = ncol * dx
+                    self.g_spawny = nrow * dy
+                    self.goombas.append(pygame.Rect(ncol * dx, nrow * dy, self.goom.rect.width, self.goom.rect.height))
+                if col == 'k':
+                    self.k_spawnx = ncol * dx
+                    self.k_spawny = nrow * dy
+                    self.koopas.append(pygame.Rect(ncol * dx, nrow * dy, self.koop.rect.width, self.koop.rect.height))
 
     # shift blocks depending on mario's relation to the middle of the screen to simulate scrolling
     def shift_level(self, x):
@@ -115,6 +132,10 @@ class Map:
         for block in self.tops:
             block.x += self.map_shift
         for block in self.castle:
+            block.x += self.map_shift
+        for block in self.goombas:
+            block.x += self.map_shift
+        for block in self.koopas:
             block.x += self.map_shift
 
     def blitme(self):
@@ -179,3 +200,13 @@ class Map:
                 del rect
             else:
                 self.screen.blit(self.cas.image, rect)
+        for rect in self.goombas:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                self.screen.blit(self.goom.image, rect)
+        for rect in self.koopas:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                self.screen.blit(self.koop.image, rect)
