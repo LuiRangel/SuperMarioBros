@@ -5,7 +5,7 @@ from imagerect import ImageRect
 class Map:
     BLOCK_SIZE = 48
 
-    def __init__(self, screen, worldfile, rockfile, metalfile, stonefile, brickfile, quesfile, pipefile, l_pipefile, polefile, flagfile, topfile, castlefile):
+    def __init__(self, screen, worldfile, rockfile, metalfile, stonefile, brickfile, quesfile, pipefile, pipefile_1, coinfile,  polefile, flagfile, topfile, castlefile):
         self.screen = screen
         self.screen_rect = screen.get_rect()
         self.filename = worldfile
@@ -18,7 +18,8 @@ class Map:
         self.brick = []
         self.q = []
         self.pipe = []
-        self.l_pipe = []
+        self.pipe_1 = []
+        self.coins = []
         self.pole = []
         self.flags = []
         self.tops = []
@@ -31,7 +32,8 @@ class Map:
         self.brick_block = ImageRect(screen, brickfile, sz, sz)
         self.q_block = ImageRect(screen, quesfile, sz, sz)
         self.pipe_block = ImageRect(screen, pipefile, sz, sz)
-        self.long_pipe = ImageRect(screen, l_pipefile, sz, sz)
+        self.long_pipe = ImageRect(screen, pipefile_1, sz, sz)
+        self.coin = ImageRect(screen, coinfile, sz, sz)
         self.pole_block = ImageRect(screen, polefile, sz, sz)
         self.flag = ImageRect(screen, flagfile, sz, sz)
         self.top = ImageRect(screen, topfile, sz, sz)
@@ -69,11 +71,12 @@ class Map:
                 if col == 'q':
                     self.q.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
                 if col == 'P':
-                    self.pipe.append(pygame.Rect(ncol * dx, nrow * dy - 28, self.pipe_block.rect.width,
-                                                 self.pipe_block.rect.height + 100))
+                    self.pipe.append(pygame.Rect(ncol * dx, nrow * dy - 28, self.pipe_block.rect.width, self.pipe_block.rect.height + 100))
                 if col == 'p':
-                    self.l_pipe.append(pygame.Rect(ncol * dx, nrow * dy - 28, self.long_pipe.rect.width,
+                    self.pipe_1.append(pygame.Rect(ncol * dx, nrow * dy - 28, self.long_pipe.rect.width,
                                                    self.long_pipe.rect.height))
+                if col == 'c':
+                    self.coins.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
                 if col == '|':
                     self.pole.append(pygame.Rect(ncol * dx, nrow * dy, self.pole_block.rect.width,
                                                  self.pole_block.rect.height))
@@ -101,7 +104,9 @@ class Map:
             block.x += self.map_shift
         for block in self.pipe:
             block.x += self.map_shift
-        for block in self.l_pipe:
+        for block in self.pipe_1:
+            block.x += self.map_shift
+        for block in self.coins:
             block.x += self.map_shift
         for block in self.pole:
             block.x += self.map_shift
@@ -114,7 +119,7 @@ class Map:
 
     def blitme(self):
         for rect in self.rock:
-            if rect.left == self.screen_rect.left:
+            if rect.right == self.screen_rect.left:
                 del rect
             else:
                 self.screen.blit(self.rock_block.image, rect)
@@ -143,11 +148,17 @@ class Map:
                 del rect
             else:
                 self.screen.blit(pygame.transform.scale(self.pipe_block.image, (75, 75)), rect)
-        for rect in self.l_pipe:
+        for rect in self.pipe_1:
             if rect.left == self.screen_rect.left:
                 del rect
             else:
                 self.screen.blit(pygame.transform.scale(self.long_pipe.image, (75, 75)), rect)
+        for rect in self.coins:
+            if rect.left == self.screen_rect.left:
+                del rect
+            else:
+                # self.pipe_block.image = pygame.transform.scale(self.pipe_block.image, (50, 50))
+                self.screen.blit(pygame.transform.scale(self.coin.image, (75, 75)), rect)
         for rect in self.pole:
             if rect.left == self.screen_rect.left:
                 del rect
